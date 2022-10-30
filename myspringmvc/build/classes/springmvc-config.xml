@@ -1,0 +1,39 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!--使用Bean标签的方式
+	<bean id="userController" class="com.jxcfs.controller.UserController"></bean>
+	-->
+	<!--使用组件扫描的方式--> 
+	<context:component-scan base-package="com.jxcfs"/>
+	<!-- 使用注解驱动SpringMVC。annotation-driven会自动注册RequestMappingHandlerMapping、RequestMappingHandlerAdapter与ExceptionHandlerExceptionResolver三个bean。在Spring3.2以后，RequestMappingHandlerAdapter完全可以代替AnnotationMethodHandlerAdapter-->
+	<mvc:annotation-driven />  
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!-- 
+<property name="driverClassName" value=" com.mysql.jdbc.Driver " />
+<property name="url" value=" jdbc:mysql://localhost:3306/spring " />
+ -->
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/spring?serverTimezone=GMT" />
+		<property name="username" value="root" />
+		<property name="password" value="123456" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" >
+		</property>
+	</bean>
+	
+	<!--  
+	<bean id="userDao" class="com.jxcfs.jdbc.dao.UserDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean> 
+	-->
+</beans>
